@@ -16,16 +16,23 @@ public class ShoppingCart {
      */
     private List<Item> itemList= new ArrayList<>();
 
-    public void addItem(String name, int quantity){
-        Item newItem= new Item(name, quantity);
+    public List<Item> getItemList() {
+        return new ArrayList<>(itemList);
+    }
 
-        if(itemList.contains(newItem)){
-            int ind= itemList.indexOf(newItem);
-            Item actu= itemList.get(ind);
-            itemList.set(ind, new Item(actu.getName(), actu.getQuantity()+ quantity));
-        }else{
-            itemList.add(newItem);
+    public void addItem(String name, int quantity){
+
+        for(Item item: itemList){
+            if(name.equals(item.getName())){
+                int ind= itemList.indexOf(item);
+
+                itemList.set(ind, new Item(item.getName(), item.getQuantity()+ quantity));
+                return;
+            }
         }
+
+        Item newItem= new Item(name, quantity);
+        itemList.add(newItem);
 
     }
     public int getItem(String name){
